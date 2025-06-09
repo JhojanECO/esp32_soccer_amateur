@@ -5,7 +5,7 @@
 BluetoothSerial SerialBT;
 
 void setup() {
-    SerialBT.begin("Chero");
+    SerialBT.begin("NOVAnombre");
     initMotors();
 }
 
