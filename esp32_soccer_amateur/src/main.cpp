@@ -1,13 +1,8 @@
 #include <Arduino.h>
 #include <BluetoothSerial.h>
+#include "constants.h"
 
 // Pines del TB6612FNG conectados al ESP32
-#define PWMA  27
-#define AIN2  26
-#define AIN1  25
-#define BIN1  33
-#define BIN2  32
-#define PWMB  12
 
 const int veloInicial = 60;     // Velocidad mínima definida por el usuario
 const int veloMax = 170;         // Velocidad máxima
