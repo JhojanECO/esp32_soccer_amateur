@@ -78,7 +78,10 @@ platformio run --target upload
 
 - Asegúrate de seleccionar el **modelo correcto de ESP32** en `platformio.ini`. Por ejemplo:
   ```ini
-board = esp32dev
+    platform = espressif32
+    board = esp32doit-devkit-v1
+    framework = arduino
+    monitor_speed = 115200
   ```
 - Verifica que el **driver USB del ESP32** esté correctamente instalado.
 - Reinicia VS Code si algo no carga bien.
