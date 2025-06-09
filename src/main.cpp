@@ -4,6 +4,9 @@
 
 BluetoothSerial SerialBT;
 
+float baseSpeed = 150;  // Valor inicial
+const float MAX_SPEED_PWM = 255.0f;
+
 void setup() {
     SerialBT.begin("NOVAnombre");
     initMotors();
@@ -13,29 +16,32 @@ void loop() {
     if (SerialBT.available()) {
         char command = SerialBT.read();
 
-        if ((command >= '0' && command <= '9') || command == 'q') {
-            setSpeed(command);
+        if (command >= '0' && command <= '9') {
+            // Ajustar velocidad proporcional
+            int level = command - '0';  // Convierte char '0'-'9' a int 0-9
+            baseSpeed = (MAX_SPEED_PWM * level) / 9.0f;
+            //SerialBT.print("Speed set to: ");
+            //SerialBT.println(baseSpeed);
         } else {
-            int speed = getSpeed();
+            // Control de movimiento
             switch (command) {
                 case 'F':
-                    motorA_forward(speed);
-                    motorB_forward(speed);
+                    controlMotors(baseSpeed, baseSpeed);
                     break;
                 case 'B':
-                    motorA_backward(speed);
-                    motorB_backward(speed);
+                    controlMotors(-baseSpeed, -baseSpeed);
                     break;
                 case 'R':
-                    motorA_forward(speed);
-                    motorB_backward(speed);
+                    controlMotors(baseSpeed, -baseSpeed);
                     break;
                 case 'L':
-                    motorA_backward(speed);
-                    motorB_forward(speed);
+                    controlMotors(-baseSpeed, baseSpeed);
+                    break;
+                case 'S':
+                    stopMotors();
                     break;
                 default:
-                    stopMotors();
+                    stopMotors();  // Seguridad
                     break;
             }
         }
