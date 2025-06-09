@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include <BluetoothSerial.h>
+#include "MotorController.h"
 
 // Pines del TB6612FNG conectados al ESP32
 #define PWMA  27
@@ -14,49 +15,12 @@ const int veloMax = 170;         // Velocidad máxima
 int velo = veloInicial;          // Variable para controlar la velocidad actual
 
 BluetoothSerial SerialBT;
+MotorController motors(PWMA, AIN1, AIN2, PWMB, BIN1, BIN2);
 
 void setup() {
     SerialBT.begin("Chero");
-    pinMode(PWMA, OUTPUT);
-    pinMode(PWMB, OUTPUT);
-    pinMode(AIN1, OUTPUT);
-    pinMode(AIN2, OUTPUT);
-    pinMode(BIN1, OUTPUT);
-    pinMode(BIN2, OUTPUT);
 }
 
-void motorA_forward(int speed) {
-    digitalWrite(AIN1, LOW);
-    digitalWrite(AIN2, HIGH);
-    analogWrite(PWMA, speed);
-}
-
-void motorA_backward(int speed) {
-    digitalWrite(AIN1, HIGH);
-    digitalWrite(AIN2, LOW);
-    analogWrite(PWMA, speed);
-}
-
-void motorB_forward(int speed) {
-    digitalWrite(BIN1, HIGH);
-    digitalWrite(BIN2, LOW);
-    analogWrite(PWMB, speed);
-}
-
-void motorB_backward(int speed) {
-    digitalWrite(BIN1, LOW);
-    digitalWrite(BIN2, HIGH);
-    analogWrite(PWMB, speed);
-}
-
-void stopMotors() {
-    digitalWrite(AIN1, LOW);
-    digitalWrite(AIN2, LOW);
-    digitalWrite(BIN1, LOW);
-    digitalWrite(BIN2, LOW);
-    analogWrite(PWMA, 0);
-    analogWrite(PWMB, 0);
-}
 
 // Función para asignar velocidad según el comando recibido
 void setSpeed(char cmd) {
@@ -80,23 +44,19 @@ void loop() {
         else {
             switch (command) {
                 case 'F':
-                    motorA_forward(velo);
-                    motorB_forward(velo);
+                    motors.forward(velo);
                     break;
                 case 'B':
-                    motorA_backward(velo);
-                    motorB_backward(velo);
+                    motors.backward(velo);
                     break;
                 case 'R':
-                    motorA_forward(velo);
-                    motorB_backward(velo);
+                    motors.turnRight(velo);
                     break;
                 case 'L':
-                    motorA_backward(velo);
-                    motorB_forward(velo);
+                    motors.turnLeft(velo);
                     break;
                 default:
-                    stopMotors();
+                    motors.stop();
                     break;
             }
         }
