@@ -78,8 +78,6 @@ platformio run --target upload
 
 - Asegúrate de seleccionar el **modelo correcto de ESP32** en `platformio.ini`. Por ejemplo:
   ```ini
-  
-    [env:esp32doit-devkit-v1]
 platform = espressif32
 board = esp32doit-devkit-v1
 framework = arduino
