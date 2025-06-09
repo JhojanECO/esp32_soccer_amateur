@@ -1,0 +1,13 @@
+# PlatformIO
+.pio/
+.vscode/
+*.pyc
+*.elf
+*.bin
+*.hex
+*.map
+*.log
+.DS_Store
+*.swp
+.idea/
+.clangd/
