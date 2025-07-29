@@ -3,7 +3,7 @@
 
 int currentSpeedA = 0;
 int currentSpeedB = 0;
-const int accelStep = 5;
+const int accelStep = 5;    //Modificar para poder determinar los saltos para la aceleración
 
 void initMotors() {
     pinMode(PWMA, OUTPUT);
@@ -38,7 +38,7 @@ void controlSingleMotor(int pwmPin, int in1, int in2, int targetSpeed, int& curr
     }
 }
 
-void controlMotors(float vel_izq, float vel_der) {
+void controlMotors(int vel_izq, int vel_der) {
     vel_izq = constrain(vel_izq, -255, 255);
     vel_der = constrain(vel_der, -255, 255);
     controlSingleMotor(PWMA, AIN1, AIN2, (int)vel_izq, currentSpeedA);

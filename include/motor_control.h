@@ -2,5 +2,5 @@
 #include <Arduino.h>
 
 void initMotors();
-void controlMotors(float vel_izq, float vel_der);
+void controlMotors(int vel_izq, int vel_der);
 void stopMotors();
