@@ -3,7 +3,7 @@
 
 int currentSpeedA = 0;
 int currentSpeedB = 0;
-const int accelStep = 5;    //Modificar para poder determinar los saltos para la aceleración
+const int accelStep = 20;    //Modificar para poder determinar los saltos para la aceleración
 
 void initMotors() {
     pinMode(PWMA, OUTPUT);

@@ -8,7 +8,7 @@ int baseSpeed = 150;  // Valor inicial
 const int MAX_SPEED_PWM = 255;
 
 void setup() {
-    SerialBT.begin("Rata Rusa");
+    SerialBT.begin("Violet");
     initMotors();
 }
 
@@ -25,17 +25,29 @@ void loop() {
         } else {
             // Control de movimiento
             switch (command) {
-                case 'R'://R
+                case 'F'://R
                     controlMotors(baseSpeed, baseSpeed);
                     break;
-                case 'L'://L
+                case 'B'://L
                     controlMotors(-baseSpeed, -baseSpeed);
                     break;
-                case 'F'://F
-                    controlMotors(baseSpeed, -baseSpeed);
+                case 'I'://F
+                    controlMotors(60, 120);
                     break;
-                case 'B'://B
-                    controlMotors(-baseSpeed, baseSpeed);
+                case 'G'://R
+                    controlMotors(120, 60);
+                    break;
+                case 'H'://F
+                    controlMotors(-60, -120);
+                    break;
+                case 'J'://R
+                    controlMotors(-120, -60);
+                    break;
+                case 'R'://F
+                    controlMotors(120, -120);
+                    break;
+                case 'L'://B
+                    controlMotors(-120, 120);
                     break;
                 case 'S':
                     stopMotors();
